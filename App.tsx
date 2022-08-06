@@ -1,45 +1,24 @@
-import React, {type PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+//import { AuthenticationNavigator } from './src/Authentication';
+import {Provider as StoreProvider} from 'react-redux';
+import {Provider as PaperProvider} from 'react-native-paper';
+import {PersistGate} from 'redux-persist/integration/react';
+import {configureStore} from './src/reduxStore/configureStore';
+import {RootRouter} from './rout';
+export default function App() {
+  //redux store
+  const {store, persistor} = configureStore();
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Text>UPayments</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <StoreProvider store={store}>
+      <PaperProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <NavigationContainer>
+            <RootRouter />
+          </NavigationContainer>
+        </PersistGate>
+      </PaperProvider>
+    </StoreProvider>
   );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-});
-
-export default App;
+}
