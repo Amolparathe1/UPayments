@@ -16,7 +16,7 @@ InstanceToken.interceptors.request.use(
     // token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtb2xwYXJhdGhlQGdtYWlsLmNvbSIsImdpdGh1YiI6Imh0dHBzOi8vZ2l0aHViLmNvbS9BbW9scGFyYXRoZTEiLCJpYXQiOjE2NTk3MDM0NTQsImV4cCI6MTY2MDEzNTQ1NH0.japRw4FR1Oz6eV8as4K7bzKp3ty9PP7GgIDPdhSrUPU';
     // if (token) {
     config.headers.Authorization =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtb2xwYXJhdGhlQGdtYWlsLmNvbSIsImdpdGh1YiI6Imh0dHBzOi8vZ2l0aHViLmNvbS9BbW9scGFyYXRoZTEiLCJpYXQiOjE2NTk3MDM0NTQsImV4cCI6MTY2MDEzNTQ1NH0.japRw4FR1Oz6eV8as4K7bzKp3ty9PP7GgIDPdhSrUPU';
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtb2xwYXJhdGhlQGdtYWlsLmNvbSIsImdpdGh1YiI6Imh0dHBzOi8vZ2l0aHViLmNvbS9BbW9scGFyYXRoZTEiLCJpYXQiOjE2NTk3MDM0NTQsImV4cCI6MTY2MDEzNTQ1NH0.japRw4FR1Oz6eV8as4K7bzKp3ty9PP7GgIDPdhSrUPU';
     // }
     return config;
   },
