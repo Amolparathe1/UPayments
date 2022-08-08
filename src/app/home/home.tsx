@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useIsFocused} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
   Text,
@@ -20,12 +20,12 @@ import {
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 const Home = (props: any) => {
-  console.log(props.store);
   const [products, setProducts] = useState(props.store.ProductReducer.Product);
   const [category, setCategory] = useState(props.store.ProductReducer.category);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortProducts, setSortProducts] = useState([]);
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
   useEffect(() => {
     //set product and category
     setProducts(props.store.ProductReducer.Product);
@@ -36,34 +36,41 @@ const Home = (props: any) => {
     //sort product list by category
     if (selectedCategory !== 'All') {
       let product = products.filter(el => el.category !== selectedCategory);
-      console.log('product', product);
-      setSortProducts(product);
+
+      setSortProducts(product.reverse());
     } else {
-      setSortProducts(products);
+      setSortProducts(products.reverse());
     }
   }, [selectedCategory, props]);
 
   useEffect(() => {
     //call api when app start
-    props.getProductList();
+    // props.getProductList();
     props.Categories();
     // props.getProductById();
     // props.CategoriesById();
   }, []);
+  useEffect(() => {
+    //call api when app focused change
+    props.getProductList();
+  }, [isFocused]);
   const navToProductDetails = (data: any) => {
     navigation.navigate('Details', {data: data});
   };
+  const navToAddProduct = () => {
+    navigation.navigate('Product');
+  };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{height: height}}>
       {/* Render category */}
       <FlatList
+        style={{marginVertical: 10}}
         horizontal
         pagingEnabled={true}
         showsHorizontalScrollIndicator={false}
         legacyImplementation={false}
         data={category}
         renderItem={item => {
-          console.log(item);
           return (
             <TouchableOpacity
               onPress={() => setSelectedCategory(item.item.name)}>
@@ -98,7 +105,6 @@ const Home = (props: any) => {
         data={sortProducts}
         numColumns={2}
         renderItem={item => {
-          console.log(item);
           return (
             <TouchableOpacity onPress={() => navToProductDetails(item.item)}>
               <View
@@ -113,7 +119,10 @@ const Home = (props: any) => {
                     uri: item.item.avatar,
                   }}
                 />
-                <Text>{item.item.name}</Text>
+                <Text
+                  style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
+                  {item.item.name}
+                </Text>
               </View>
             </TouchableOpacity>
           );
@@ -130,17 +139,17 @@ const Home = (props: any) => {
         <TouchableOpacity
           style={{
             backgroundColor: '#23A77E',
-            height: 42,
-            width: 42,
-            borderRadius: 21,
+            height: 60,
+            width: 60,
+            borderRadius: 30,
             justifyContent: 'center',
             alignItems: 'center',
             marginRight: 10,
           }}
-          // onPress={() => {
-          // }}
-        >
-          <Text style={{fontSize: 30, fontWeight: 'bold', color: 'white'}}>
+          onPress={() => {
+            navToAddProduct();
+          }}>
+          <Text style={{fontSize: 40, fontWeight: 'bold', color: 'white'}}>
             +
           </Text>
         </TouchableOpacity>

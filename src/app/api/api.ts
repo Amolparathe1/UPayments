@@ -3,6 +3,7 @@ import {Urls} from '../../util/url';
 import {
   setProductList,
   setCategoriesList,
+  setCategories,
 } from '../../reduxStore/product/productAction';
 
 export const getProductList = () => {
@@ -32,6 +33,7 @@ export const Categories = () => {
         var a = res.data.categories;
         a.unshift({name: 'All', _id: '0'});
         //data store in redux
+        dispatch(setCategories(res.data.categories));
         dispatch(setCategoriesList(a));
       })
       .catch(error => {});

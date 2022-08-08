@@ -16,8 +16,6 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 const Details = (props: any) => {
   const [product, setProduct] = useState(props.route.params.data);
-  console.log(props);
-
   return (
     <SafeAreaView>
       <ScrollView>
@@ -27,18 +25,30 @@ const Details = (props: any) => {
           style={{
             height: height,
             width: width * 0.95,
-            marginHorizontal: width * 0.05,
+            marginHorizontal: width * 0.025,
           }}>
           <Image
-            style={{height: height * 0.4, width: width * 0.95}}
+            style={{
+              height: height * 0.4,
+              width: width * 0.95,
+              marginVertical: width * 0.025,
+            }}
             source={{
               uri: product.avatar,
             }}
           />
-          <Text style={{fontSize: 18, fontWeight: 'bold', marginVertical: 10}}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: 'bold',
+              marginVertical: 10,
+              color: 'black',
+            }}>
             {product.name}
           </Text>
-          <Text>{product.description}</Text>
+          <Text style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
+            {product.description}
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
