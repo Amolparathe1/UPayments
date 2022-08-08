@@ -35,8 +35,7 @@ const Home = (props: any) => {
   useEffect(() => {
     //sort product list by category
     if (selectedCategory !== 'All') {
-      let product = products.filter(el => el.category !== selectedCategory);
-
+      let product = products.filter(el => el.category === selectedCategory);
       setSortProducts(product.reverse());
     } else {
       setSortProducts(products.reverse());

@@ -27,11 +27,11 @@ InstanceToken.interceptors.request.use(
 
 InstanceToken.interceptors.response.use(
   response => {
-    console.log('response', response);
+    // console.log('response', response);
     return response;
   },
   function (error) {
-    console.log('error', error);
+    // console.log('error', error);
     return error.response;
   },
 );

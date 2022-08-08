@@ -54,16 +54,13 @@ const Product = (props: any) => {
       // await props.addNewProduct(data);
       InstanceToken.post(Urls.products, data)
         .then(response => {
-          console.log('############ response', response);
           if (response.status === 201) {
             navigation.goBack();
           } else {
             Alert.alert(response.data.message);
           }
         })
-        .catch(error => {
-          console.log('############ err', error.response);
-        });
+        .catch(error => {});
     } else {
       Alert.alert('Please add all data');
     }
