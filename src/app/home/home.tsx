@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
   Text,
@@ -24,7 +25,7 @@ const Home = (props: any) => {
   const [category, setCategory] = useState(props.store.ProductReducer.category);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortProducts, setSortProducts] = useState([]);
-
+  const navigation = useNavigation();
   useEffect(() => {
     //set product and category
     setProducts(props.store.ProductReducer.Product);
@@ -49,6 +50,9 @@ const Home = (props: any) => {
     // props.getProductById();
     // props.CategoriesById();
   }, []);
+  const navToProductDetails = (data: any) => {
+    navigation.navigate('Details', {data: data});
+  };
   return (
     <SafeAreaView>
       {/* Render category */}
@@ -96,20 +100,22 @@ const Home = (props: any) => {
         renderItem={item => {
           console.log(item);
           return (
-            <View
-              style={{
-                height: height * 0.3,
-                width: width * 0.45,
-                marginHorizontal: width * 0.05,
-              }}>
-              <Image
-                style={{height: height * 0.25, width: width * 0.35}}
-                source={{
-                  uri: item.item.avatar,
-                }}
-              />
-              <Text>{item.item.name}</Text>
-            </View>
+            <TouchableOpacity onPress={() => navToProductDetails(item.item)}>
+              <View
+                style={{
+                  height: height * 0.3,
+                  width: width * 0.45,
+                  marginHorizontal: width * 0.05,
+                }}>
+                <Image
+                  style={{height: height * 0.25, width: width * 0.35}}
+                  source={{
+                    uri: item.item.avatar,
+                  }}
+                />
+                <Text>{item.item.name}</Text>
+              </View>
+            </TouchableOpacity>
           );
         }}
         ListFooterComponent={<View style={{height: 100}}></View>}
